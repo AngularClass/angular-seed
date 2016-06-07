@@ -49,13 +49,13 @@ interface WebpackRequire extends NodeRequireFunction {
 }
 
 
-interface ErrorStackTraceLimit {
-  stackTraceLimit: number;
-}
+// interface ErrorStackTraceLimit {
+//   stackTraceLimit: number;
+// }
 
 
 // Extend typings
 interface NodeRequire extends WebpackRequire {}
-interface ErrorConstructor extends ErrorStackTraceLimit {}
+// interface ErrorConstructor extends ErrorStackTraceLimit {}
 interface NodeModule extends WebpackModule {}
 interface Global extends GlobalEnvironment  {}

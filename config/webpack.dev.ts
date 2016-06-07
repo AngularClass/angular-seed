@@ -5,6 +5,9 @@ const {
     CommonsChunkPlugin
   }
 } = require('webpack');
+
+const ProgressPlugin = require('webpack/lib/ProgressPlugin.js');
+
 const {ForkCheckerPlugin} = require('awesome-typescript-loader');
 const path = require('path');
 
@@ -53,7 +56,8 @@ function webpackConfig(options: EnvOptions = {}): WebpackConfig {
       new HotModuleReplacementPlugin(),
       new ForkCheckerPlugin(),
       new CommonsChunkPlugin({ name: ['polyfills', 'vendor', 'main'].reverse(), minChunks: Infinity }),
-      new DefinePlugin(CONSTANTS)
+      new DefinePlugin(CONSTANTS),
+      new ProgressPlugin({})
     ],
 
     resolve: {

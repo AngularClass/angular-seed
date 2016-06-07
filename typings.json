@@ -1,9 +1,6 @@
 {
-  "name": "angular2-webpack2-starter",
-  "version": false,
-  "dependencies": {},
-  "ambientDependencies": {
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
-    "node": "registry:dt/node#4.0.0+20160412142033"
+  "globalDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "node": "registry:env/node#4.0.0+20160507210304"
   }
 }
