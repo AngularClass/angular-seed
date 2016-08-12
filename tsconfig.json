@@ -10,8 +10,8 @@
     "lib": ["es5", "dom"],
     "strictNullChecks": false,
     "baseUrl": "./src",
-    "paths": [
-    ],
+    "paths": {
+    },
     "types": [
       "core-js",
       "node"
