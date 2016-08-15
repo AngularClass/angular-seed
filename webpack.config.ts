@@ -33,7 +33,8 @@ function webpackConfig(options: EnvOptions = {}): WebpackConfig {
     ENV: JSON.stringify(options.ENV),
     HMR: options.HMR,
     PORT: 3000,
-    HOST: 'localhost'
+    HOST: 'localhost',
+    HTTPS: false
   };
 
   return {
@@ -123,7 +124,9 @@ function webpackConfig(options: EnvOptions = {}): WebpackConfig {
       port: CONSTANTS.PORT,
       hot: CONSTANTS.HMR,
       inline: CONSTANTS.HMR,
-      historyApiFallback: true
+      historyApiFallback: true,
+      host: CONSTANTS.HOST,
+      https: CONSTANTS.HTTPS
     },
 
     node: {
@@ -176,6 +179,8 @@ interface WebpackConfig {
     historyApiFallback?: boolean;
     hot?: boolean;
     inline?: boolean;
+    host?: string;
+    https?: boolean;
   };
   node?: {
     process?: boolean;
