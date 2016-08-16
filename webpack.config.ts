@@ -102,7 +102,8 @@ function webpackConfig(options: EnvOptions = {}): WebpackConfig {
     plugins: [
       // fix angular2
       new ContextReplacementPlugin(
-        /angular\/core\/(esm\/src|src)\/linker/,
+        // The (\\|\/) piece accounts for path separators in *nix and Windows
+        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
         root('./src'),
         resolveNgRoute(root('./src'))
       ),
