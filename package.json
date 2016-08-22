@@ -53,7 +53,7 @@
     "json-loader": "^0.5.4",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
-    "string-replace-loader": "github:gdi2290/string-replace-loader",
+    "string-replace-loader": "^1.0.3",
     "to-string-loader": "^1.1.4",
     "ts-helpers": "github:gdi2290/ts-helpers",
     "ts-loader": "^0.8.2",
