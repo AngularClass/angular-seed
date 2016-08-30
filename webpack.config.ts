@@ -127,7 +127,10 @@ function webpackConfig(options: EnvOptions = {}): WebpackConfig {
         app.get('/dll/*', (req, res) => {
           var files = req.path.split('/');
           var chunk = files[files.length -1].replace('.js', '');
-          res.sendFile(root('dist/dll/'+ getDllAssets(chunk)));
+          if(chunk.split('.').length<2)
+            res.sendFile(root('dist/dll/'+ getDllAssets(chunk)));
+          else
+            res.sendFile(root('dist/dll/'+chunk));
         });
       },
       compress: true,
