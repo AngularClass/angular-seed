@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser'
+import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ export const ROUTER_CONFIG = [
     // Components / Directives/ Pipes
     RouterModule.forChild(ROUTER_CONFIG),
     FormsModule,
-    BrowserModule
+    CommonModule
   ]
 })
 export default class AboutModule {

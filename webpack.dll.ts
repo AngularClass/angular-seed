@@ -116,7 +116,8 @@ function webpackConfig(options: EnvOptions = {}): WebpackConfig {
 
       new ProgressPlugin({}),
 
-      new DedupePlugin(),
+      // https://github.com/webpack/webpack/issues/2764
+      // new DedupePlugin(),
 
     ],
     node: {
