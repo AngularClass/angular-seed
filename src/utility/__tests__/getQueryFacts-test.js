@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import {
   GraphQLBoolean,
   GraphQLFloat,
@@ -42,8 +40,8 @@ describe('collectVariables', () => {
     `),
     );
     expect(Object.keys(variableToType)).to.deep.equal(['foo', 'bar']);
-    expect(variableToType.foo).to.equal(GraphQLInt);
-    expect(variableToType.bar).to.equal(GraphQLString);
+    expect(variableToType.foo).toEqual(GraphQLInt);
+    expect(variableToType.bar).toEqual(GraphQLString);
   });
 
   it('collects variable types from multiple queries', () => {
@@ -55,8 +53,8 @@ describe('collectVariables', () => {
     `),
     );
     expect(Object.keys(variableToType)).to.deep.equal(['foo', 'bar', 'baz']);
-    expect(variableToType.foo).to.equal(GraphQLInt);
-    expect(variableToType.bar).to.equal(GraphQLString);
-    expect(variableToType.baz).to.equal(GraphQLFloat);
+    expect(variableToType.foo).toEqual(GraphQLInt);
+    expect(variableToType.bar).toEqual(GraphQLString);
+    expect(variableToType.baz).toEqual(GraphQLFloat);
   });
 });
