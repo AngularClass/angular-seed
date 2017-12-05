@@ -1,31 +1,27 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import React from 'react';
-import ReactTestRenderer from 'react-test-renderer';
-
-import { GraphiQL } from '../GraphiQL';
+// import ReactTestRenderer from 'react-test-renderer';
+// import { GraphiQL } from '../components/GraphiQL';
 
 document.createRange = () => ({
-  setEnd() {},
-  setStart() {},
-  getBoundingClientRect() {
+  setEnd () {},
+  setStart () {},
+  getBoundingClientRect () {
     return { right: 0 };
   },
-  getClientRects() {
+  getClientRects () {
     return { right: 0 };
   },
 });
 
-const mockStorage = (function() {
+const mockStorage = (function () {
   let store = {};
   return {
-    getItem(key) {
+    getItem (key) {
       return store.hasOwnProperty(key) ? store[key] : null;
     },
-    setItem(key, value) {
+    setItem (key, value) {
       store[key] = value.toString();
     },
-    clear() {
+    clear () {
       store = {};
     },
   };
@@ -76,13 +72,13 @@ describe('GraphiQL', () => {
 
   it('should refetch schema with new fetcher', async () => {
     let firstCalled = false;
-    function firstFetcher() {
+    function firstFetcher () {
       firstCalled = true;
       return Promise.resolve(simpleIntrospection);
     }
 
     let secondCalled = false;
-    function secondFetcher() {
+    function secondFetcher () {
       secondCalled = true;
       return Promise.resolve(simpleIntrospection);
     }
