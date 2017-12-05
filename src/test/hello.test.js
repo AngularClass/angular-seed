@@ -5,7 +5,7 @@ import HelloComponent from '../components/Hello.vue';
 const renderer = require('vue-server-renderer').createRenderer();
 
 describe('Test suite for HelloComponent', () => {
-  test('Test data msg', () => {
+  it('Test data msg', () => {
     const ClonedComponent = Vue.extend(HelloComponent);
     const NewComponent = new ClonedComponent({
       data () {

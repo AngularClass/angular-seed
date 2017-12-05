@@ -1,7 +1,4 @@
-// import { expect } from 'chai';
-// import { describe, it } from 'mocha';
-
-import { invalidCharacters, normalizeWhitespace } from '../normalizeWhitespace';
+import { invalidCharacters, normalizeWhitespace } from '../utility/normalizeWhitespace';
 
 describe('QueryEditor', () => {
   it('removes unicode characters', () => {

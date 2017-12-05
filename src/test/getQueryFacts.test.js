@@ -9,7 +9,7 @@ import {
   parse,
 } from 'graphql';
 
-import { collectVariables } from '../getQueryFacts';
+import { collectVariables } from '../utility/getQueryFacts';
 
 describe('collectVariables', () => {
   const TestType = new GraphQLObjectType({
@@ -29,7 +29,7 @@ describe('collectVariables', () => {
 
   it('returns an empty object if no variables exist', () => {
     const variableToType = collectVariables(TestSchema, parse('{ id }'));
-    expect(variableToType).to.deep.equal({});
+    expect(variableToType).toEqual({});
   });
 
   it('collects variable types from a schema and query', () => {
@@ -39,7 +39,7 @@ describe('collectVariables', () => {
       query ($foo: Int, $bar: String) { id }
     `),
     );
-    expect(Object.keys(variableToType)).to.deep.equal(['foo', 'bar']);
+    expect(Object.keys(variableToType)).toBe(['foo', 'bar']);
     expect(variableToType.foo).toEqual(GraphQLInt);
     expect(variableToType.bar).toEqual(GraphQLString);
   });
@@ -52,7 +52,7 @@ describe('collectVariables', () => {
       query B($foo: Int, $baz: Float) { id }
     `),
     );
-    expect(Object.keys(variableToType)).to.deep.equal(['foo', 'bar', 'baz']);
+    expect(Object.keys(variableToType)).toBe(['foo', 'bar', 'baz']);
     expect(variableToType.foo).toEqual(GraphQLInt);
     expect(variableToType.bar).toEqual(GraphQLString);
     expect(variableToType.baz).toEqual(GraphQLFloat);
