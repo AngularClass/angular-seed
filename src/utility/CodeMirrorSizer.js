@@ -1,0 +1,19 @@
+/**
+ * When a containing DOM node's height has been altered, trigger a resize of
+ * the related CodeMirror instance so that it is always correctly sized.
+ */
+export default class CodeMirrorSizer {
+  constructor() {
+    this.sizes = [];
+  }
+
+  updateSizes(components) {
+    components.forEach((component, i) => {
+      const size = component.getClientHeight();
+      if (i <= this.sizes.length && size !== this.sizes[i]) {
+        component.getCodeMirror().setSize();
+      }
+      this.sizes[i] = size;
+    });
+  }
+}
