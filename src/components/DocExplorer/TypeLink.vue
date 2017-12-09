@@ -24,7 +24,6 @@
 
 <script>
 import { GraphQLList, GraphQLNonNull } from 'graphql'
-console.log('GraphQLList', GraphQLList)
 export default {
   name: 'TypeLink',
   props: {
