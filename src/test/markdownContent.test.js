@@ -1,32 +1,29 @@
-import Vue from 'vue'
 import { mount } from 'vue-test-utils'
-import MarkdownContent from '../components/DocExplorer/MarkdownContent.vue';
-// import VueMarkdown from 'vue-markdown'
+import getRenderedText from '../test/helpers/getRenderedText'
+import MarkdownContent from '../components/DocExplorer/MarkdownContent.vue'
 
-// helper function that mounts and returns the rendered text
-function getRenderedText (Component, propsData) {
-  const Constructor = Vue.extend(Component)
-  const vm = new Constructor({ propsData: propsData }).$mount()
-  return vm.$el.textContent
+const testMd = '### test md'
+const className = 'test-class'
+
+function getText () {
+  return getRenderedText(MarkdownContent, { markdown: testMd })
 }
 
 describe('MarkdownContent', () => {
   let wrapper
-  const testMd = '### test md'
-  const className = 'test-class'
   beforeEach(() => {
     wrapper = mount(MarkdownContent)
     wrapper.setProps({ className })
+    wrapper.setProps({ markdown: testMd })
   })
   it(`has received ${testMd} as the message property`, () => {
-    wrapper.setProps({ markdown: testMd })
     expect(wrapper.vm.markdown).toEqual(testMd)
   })
   it(`has received ${className} as the message property`, () => {
     expect(wrapper.vm.className).toEqual(className)
   })
   it('returns valid html', () => {
-    expect(getRenderedText(MarkdownContent, { markdown: testMd }))
-    .toBe('test md')
+    expect(getText()).toContain('test md')
+    expect(getText()).not.toContain('###')
   })
 })
