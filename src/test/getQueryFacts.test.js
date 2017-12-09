@@ -39,7 +39,7 @@ describe('collectVariables', () => {
       query ($foo: Int, $bar: String) { id }
     `),
     );
-    expect(Object.keys(variableToType)).toBe(['foo', 'bar']);
+    expect(Object.keys(variableToType)).toEqual(['foo', 'bar']);
     expect(variableToType.foo).toEqual(GraphQLInt);
     expect(variableToType.bar).toEqual(GraphQLString);
   });
@@ -52,7 +52,7 @@ describe('collectVariables', () => {
       query B($foo: Int, $baz: Float) { id }
     `),
     );
-    expect(Object.keys(variableToType)).toBe(['foo', 'bar', 'baz']);
+    expect(Object.keys(variableToType)).toEqual(['foo', 'bar', 'baz']);
     expect(variableToType.foo).toEqual(GraphQLInt);
     expect(variableToType.bar).toEqual(GraphQLString);
     expect(variableToType.baz).toEqual(GraphQLFloat);
