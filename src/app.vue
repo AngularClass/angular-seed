@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ComponentWrapper />
+    <ComponentWrapper :title="componentWrapperProps.title" :className="componentWrapperProps.className"/>
   </div>
 </template>
 
@@ -10,7 +10,14 @@ export default {
   name: 'app',
   components: {
     ComponentWrapper
+  },
+  data: () => ({
+    componentWrapperProps: {
+      title: 'wrapper title',
+      className: 'wrapper'
+    }
   }
+  )
 }
 </script>
 
