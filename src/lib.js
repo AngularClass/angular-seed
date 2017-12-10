@@ -1,4 +1,4 @@
-import tipePlayground from './components/hello'
+import Playground from './components/playground'
 import './styles/lib.styl'
 
-export default tipePlayground
+export default Playground
