@@ -5,11 +5,13 @@
     <h1 :class="className">{{title}}</h1>
     <TypeLink :type="TypeLinkProps.type" :onClick="TypeLinkProps.onClick" />
     <MarkdownContent :class="MarkdownContentProps.className" :markdown="MarkdownContentProps.markdown" />
+    <FieldDoc :field="FieldDocProps.field" :onClickType="handleClickTypeOrField"/>
   </div>
 </template>
 <script>
 import TypeLink from './TypeLink'
 import MarkdownContent from './MarkdownContent'
+import FieldDoc from './FieldDoc'
 export default {
   name: 'ComponentWrapper',
   props: {
@@ -22,7 +24,8 @@ export default {
   },
   components: {
     TypeLink,
-    MarkdownContent
+    MarkdownContent,
+    FieldDoc
   },
   data () {
     return {
@@ -35,12 +38,42 @@ export default {
           name: 'String'
         },
         onClick: this.handleClick
+      },
+      FieldDocProps: {
+        field: {
+          navStack: [
+            {
+              initialNav: {
+                name: 'Schema',
+                title: 'Documentation Explorer',
+              }
+            }
+          ],
+          description: '### field description',
+          type: {
+            name: 'field name'
+          },
+          args: [
+            {
+              name: 'Address',
+              description: '### args description'
+            },
+            {
+              name: 'TestField',
+              description: '### TestField description'
+            }
+          ]
+        },
+        onClickType: {}
       }
     }
   },
   methods: {
     handleClick: (component) => {
       console.log('handleClick for', component)
+    },
+    handleClickTypeOrField: (typeOrField) => {
+      console.log('handleClickTypeOrField', typeOrField)
     }
   }
 }
