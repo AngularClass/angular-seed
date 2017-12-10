@@ -11,13 +11,14 @@ export default {
   components: {
     ComponentWrapper
   },
-  data: () => ({
-    componentWrapperProps: {
-      title: 'wrapper title',
-      className: 'wrapper'
+  data: () => {
+    return {
+      componentWrapperProps: {
+        title: 'wrapper title',
+        className: 'wrapper'
+      }
     }
   }
-  )
 }
 </script>
 
