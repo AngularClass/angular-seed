@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "graphql": "^0.11.7",
-    "vue": "^2.3.3"
+    "vue": "^2.3.3",
+    "vue-markdown": "^2.2.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -4,10 +4,12 @@
   <div>
     <h1 :class="className">{{title}}</h1>
     <TypeLink :type="TypeLinkProps.type" :onClick="TypeLinkProps.onClick" />
+    <MarkdownContent :class="MarkdownContentProps.className" :markdown="MarkdownContentProps.markdown" />
   </div>
 </template>
 <script>
 import TypeLink from './TypeLink'
+import MarkdownContent from './MarkdownContent'
 export default {
   name: 'ComponentWrapper',
   props: {
@@ -19,10 +21,15 @@ export default {
     },
   },
   components: {
-    TypeLink
+    TypeLink,
+    MarkdownContent
   },
   data () {
     return {
+      MarkdownContentProps: {
+        markdown: '### I am marked downnn',
+        className: 'markdown-component'
+      },
       TypeLinkProps: {
         type: {
           name: 'String'

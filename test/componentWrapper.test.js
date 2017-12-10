@@ -13,7 +13,7 @@ describe('ComponentWrapper', () => {
     })
   })
   it(`renders props title correctly`, () => {
-    expect(testWrapper.text()).toBe(title)
+    expect(testWrapper.find(`.${className}`).text()).toBe(title)
   })
   it(`has the correct class`, () => {
     expect(testWrapper.find(`.${className}`).exists()).toBe(true)
