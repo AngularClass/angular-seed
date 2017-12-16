@@ -9,14 +9,14 @@
       <div class="doc-category-title">
         type
       </div>
-      <TypeLink :type="field.type" :onClick="onClickType" />
+      <TypeLink :type="field.type" v-on:TypeLinkClick="handleClick" />
     </div>
     <div class="doc-category">
         <div class="doc-category-title">
           arguments
         </div>
         <div v-for="arg in field.args" :key="arg.name" class="doc-category-item">
-          <Argument :showDefaultValue="true" :arg="arg" :onClickType="onClickType" />
+          <Argument :showDefaultValue="true" :arg="arg" />
           <MarkdownContent
             :className="'doc-value-description'"
             :markdown="arg.description"
@@ -35,15 +35,17 @@ export default {
     field: {
       type: Object,
       required: true
-    },
-    onClickType: {
-      type: Function
     }
   },
   components: {
     Argument,
     MarkdownContent,
     TypeLink
+  },
+  methods: {
+    handleClick: (...args) => {
+      console.log('FieldDoc handleClick', args)
+    }
   }
 }
 </script>
