@@ -9,7 +9,7 @@
       <div class="doc-category-title">
         type
       </div>
-      <TypeLink :type="field.type" v-on:TypeLinkClick="handleClick" />
+      <TypeLink :type="field.type" v-on:typeLinkClick="handleClick" />
     </div>
     <div class="doc-category">
         <div class="doc-category-title">
@@ -43,8 +43,8 @@ export default {
     TypeLink
   },
   methods: {
-    handleClick: (...args) => {
-      console.log('FieldDoc handleClick', args)
+    handleClick: function (...args) {
+      this.$emit('fieldDocClick', args)
     }
   }
 }
