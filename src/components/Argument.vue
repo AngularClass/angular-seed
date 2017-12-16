@@ -3,7 +3,7 @@
     <span className="arg-name">{{arg.name}}</span>
     :
     <TypeLink :type="arg.type" :onClick="onClickType" />
-    {{ showDefaultValue !== false && <DefaultValue :field="arg" /> }}
+    <DefaultValue :if="showDefaultValue" :field="arg" />
   </span>
 </template>
 
@@ -32,6 +32,7 @@
     }
   }
 </script>
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+</style>
 
 

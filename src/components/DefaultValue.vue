@@ -1,8 +1,8 @@
-<template :if="defaultValue !== undefined">
+<template>
   <span>
     <span class="arg-default-value">
       =
-      {print(astFromValue(defaultValue, type))}
+      {{print(astFromValue(field.defaultValue, field.type))}}
     </span>
   </span>
 </template>
@@ -15,16 +15,6 @@ export default {
     field: {
       required: true,
       type: Object
-    }
-  },
-  computed: {
-    defaultValue: () => {
-      const { defaultValue } = this.field
-      return defaultValue
-    },
-    type: () => {
-      const { type } = this.field
-      return type
     }
   },
   methods: {
