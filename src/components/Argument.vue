@@ -2,7 +2,7 @@
   <span className="arg">
     <span className="arg-name">{{arg.name}}</span>
     :
-    <TypeLink :type="arg.type" :onClick="onClickType" />
+    <TypeLink :type="arg.type" v-on:TypeLinkClick="handleClick"/>
     <DefaultValue :if="showDefaultValue" :field="arg" />
   </span>
 </template>
@@ -17,10 +17,6 @@
         required: true,
         type: Object
       },
-      onClickType: {
-        required: true,
-        type: Function
-      },
       showDefaultValue: {
         required: true,
         type: Boolean
@@ -29,6 +25,11 @@
     components: {
       TypeLink,
       DefaultValue
+    },
+    methods: {
+      handleClick: (...args) => {
+        console.log('Argument handleClick', args)
+      }
     }
   }
 </script>
