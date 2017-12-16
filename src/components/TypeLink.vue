@@ -41,7 +41,7 @@ export default {
   methods: {
     handleClick: function (e, type) {
       e.preventDefault()
-      this.$emit('TypeLinkClick', type)
+      this.$emit('typeLinkClick', type)
     }
   }
 }
