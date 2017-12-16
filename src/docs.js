@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './app'
 
 import './styles/app.styl'
+import './styles/playground.css'
 
 Vue.config.productionTip = false
 
