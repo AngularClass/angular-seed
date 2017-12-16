@@ -41,6 +41,12 @@ export default {
       GraphQLList,
       GraphQLNonNull
     }
+  },
+  methods: {
+    handleClick: function (e, type) {
+      e.preventDefault()
+      this.$emit('typeLinkClick', type)
+    }
   }
 }
 </script>

@@ -9,7 +9,7 @@
       <div class="doc-category-title">
         type
       </div>
-      <TypeLink :type="field.type" :onClick="onClickType" />
+      <TypeLink :type="field.type" v-on:typeLinkClick="handleClick" />
     </div>
     <div :if="field.args">
       <div class="doc-category">
@@ -51,11 +51,10 @@ export default {
     MarkdownContent,
     TypeLink
   },
-  data () {
-    return {}
-  },
-  created () {
-    console.log('field', this.field.args)
+  methods: {
+    handleClick: function (...args) {
+      this.$emit('fieldDocClick', args)
+    }
   }
 }
 </script>

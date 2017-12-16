@@ -2,8 +2,8 @@
   <span className="arg">
     <span className="arg-name">{{arg.name}}</span>
     :
-    <TypeLink :type="arg.type" :onClick="onClickType" />
-    {{ showDefaultValue !== false && <DefaultValue :field="arg" /> }}
+    <TypeLink :type="arg.type" v-on:typeLinkClick="handleClick"/>
+    <DefaultValue :if="showDefaultValue" :field="arg" />
   </span>
 </template>
 
@@ -29,6 +29,14 @@
     components: {
       TypeLink,
       DefaultValue
+<<<<<<< HEAD
+=======
+    },
+    methods: {
+      handleClick: (...args) => {
+        this.$emit('argumentClick', args)
+      }
+>>>>>>> f824403... :construction: wip
     }
   }
 </script>

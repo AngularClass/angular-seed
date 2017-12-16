@@ -3,9 +3,9 @@
 <template>
   <div>
     <h1 :class="className">{{title}}</h1>
-    <TypeLink :type="TypeLinkProps.type" :onClick="TypeLinkProps.onClick" />
+    <TypeLink :type="TypeLinkProps.type" v-on:typeLinkClick="handleTypeLinkClick" />
     <MarkdownContent :class="MarkdownContentProps.className" :markdown="MarkdownContentProps.markdown" />
-    <FieldDoc :field="FieldDocProps.field" :onClickType="handleClickTypeOrField"/>
+    <FieldDoc :field="FieldDocProps.field" v-on:fieldDocClick="handleFieldDocClick"/>
   </div>
 </template>
 <script>
@@ -36,8 +36,7 @@ export default {
       TypeLinkProps: {
         type: {
           name: 'String'
-        },
-        onClick: this.handleClick
+        }
       },
       FieldDocProps: {
         field: {
@@ -63,16 +62,18 @@ export default {
               description: '### TestField description'
             }
           ]
-        },
-        onClickType: {}
+        }
       }
     }
   },
   methods: {
-    handleClick: (component) => {
-      console.log('handleClick for', component)
+    handleTypeLinkClick: function (args) {
+      console.log('handleTypeLinkClick args', args)
     },
-    handleClickTypeOrField: (typeOrField) => {
+    handleFieldDocClick: function (args) {
+      console.log('handleFieldDocClick args', args)
+    },
+    handleClickTypeOrField: function (typeOrField) {
       console.log('handleClickTypeOrField', typeOrField)
     }
   }
