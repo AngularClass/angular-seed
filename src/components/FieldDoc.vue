@@ -11,24 +11,18 @@
       </div>
       <TypeLink :type="field.type" :onClick="onClickType" />
     </div>
-    <div :if="field.args">
-      <div class="doc-category">
-          <div class="doc-category-title">
-            arguments
-          </div>
-          <div :for="arg in field.args">
-            <div :key="arg.name" class="doc-category-item">
-              <div>
-                <Argument :arg="arg" :onClickType="this.props.onClickType" />
-              </div>
-              <MarkdownContent
-                :className="'doc-value-description'"
-                :markdown="arg.description"
-              />
-            </div>
-          </div>
+    <div class="doc-category">
+        <div class="doc-category-title">
+          arguments
         </div>
-    </div>
+        <div v-for="arg in field.args" :key="arg.name" class="doc-category-item">
+          <Argument :showDefaultValue="true" :arg="arg" :onClickType="onClickType" />
+          <MarkdownContent
+            :className="'doc-value-description'"
+            :markdown="arg.description"
+          />
+        </div>
+      </div>
   </div>
 </template>
 <script>
@@ -50,12 +44,6 @@ export default {
     Argument,
     MarkdownContent,
     TypeLink
-  },
-  data () {
-    return {}
-  },
-  created () {
-    console.log('field', this.field.args)
   }
 }
 </script>

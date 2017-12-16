@@ -56,11 +56,17 @@ export default {
           args: [
             {
               name: 'Address',
-              description: '### args description'
+              description: '### args description',
+              type: {
+                name: 'String'
+              }
             },
             {
               name: 'TestField',
-              description: '### TestField description'
+              description: '### TestField description',
+              type: {
+                name: 'String'
+              }
             }
           ]
         },
