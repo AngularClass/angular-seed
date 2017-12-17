@@ -1,17 +1,22 @@
 // Temporary component to test refactored react components
 
 <template>
+  <!-- uncomment below to preview styles -->
+  <!-- <div class="playground"> -->
   <div>
     <h1 :class="className">{{title}}</h1>
     <TypeLink :type="TypeLinkProps.type" :onClick="TypeLinkProps.onClick" />
     <MarkdownContent :class="MarkdownContentProps.className" :markdown="MarkdownContentProps.markdown" />
-    <FieldDoc :field="FieldDocProps.field" :onClickType="handleClickTypeOrField"/>
+    <FieldDoc :field="FieldDocProps.field" v-on:typeLinkClick="handleTypeLinkClick"/>
+    <SchemaDoc :schema="SchemaDocProps.schema"/>
   </div>
 </template>
 <script>
 import TypeLink from './TypeLink'
 import MarkdownContent from './MarkdownContent'
 import FieldDoc from './FieldDoc'
+import SchemaDoc from './SchemaDoc'
+import {schema} from '../mocks/graphql/schema'
 export default {
   name: 'ComponentWrapper',
   props: {
@@ -25,7 +30,8 @@ export default {
   components: {
     TypeLink,
     MarkdownContent,
-    FieldDoc
+    FieldDoc,
+    SchemaDoc
   },
   data () {
     return {
@@ -69,14 +75,17 @@ export default {
               }
             }
           ]
-        },
-        onClickType: {}
+        }
+      },
+      SchemaDocProps: {
+        schema
       }
     }
   },
   methods: {
-    handleClick: (component) => {
-      console.log('handleClick for', component)
+    handleTypeLinkClick: function (e, ...args) {
+      e.preventDefault()
+      console.log('handleTypeLinkClick args', e, args)
     },
     handleClickTypeOrField: (typeOrField) => {
       console.log('handleClickTypeOrField', typeOrField)

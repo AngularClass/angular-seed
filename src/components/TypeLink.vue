@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if="(type instanceof GraphQLNonNull)">
-      <a class="type-name" @click="handleClick($event, type)">
+      <a class="type-name" v-on:click="handleClick($event, type)">
         {{type.name}}
       </a>
       !
@@ -9,13 +9,13 @@
 
     <span v-else-if="(type instanceof GraphQLList)">
       [
-      <a class="type-name" @click="handleClick($event, type)">
+      <a class="type-name" v-on:click="handleClick($event, type)">
         {{type.name}}
       </a>
       ]
     </span>
     <span v-else>
-      <a class="type-name" @click="handleClick($event, type)">
+      <a class="type-name" v-on:click="handleClick($event, type)">
         {{type.name}}
       </a>
     </span>
@@ -40,8 +40,7 @@ export default {
   },
   methods: {
     handleClick: function (e, type) {
-      e.preventDefault()
-      this.$emit('TypeLinkClick', type)
+      this.$emit('typeLinkClick', e, type)
     }
   }
 }
