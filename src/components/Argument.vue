@@ -2,7 +2,7 @@
   <span className="arg">
     <span className="arg-name">{{arg.name}}</span>
     :
-    <TypeLink :type="arg.type" v-on:typeLinkClick="handleClick"/>
+    <TypeLink :type="arg.type" v-on:typeLinkClick="handleTypeLinkClick"/>
     <DefaultValue :if="showDefaultValue" :field="arg" />
   </span>
 </template>
@@ -27,8 +27,8 @@
       DefaultValue
     },
     methods: {
-      handleClick: (...args) => {
-        this.$emit('argumentClick', args)
+      handleTypeLinkClick: function (e, ...args) {
+        this.$emit('argumentClick', e, args)
       }
     }
   }

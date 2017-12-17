@@ -9,25 +9,19 @@
         root types
       </div>
       <div class="doc-category-item">
-        <span class="keyword">query</span>
-        :
-        <TypeLink type="queryType" @click="handleClick" />
+        <span class="keyword">query:</span>
+        <TypeLink :type="queryType" v-on:typeLinkClick="handleTypeLinkClick" />
       </div>
-      {{mutationType &&
-        <div class="doc-category-item">
-          <span class="keyword">mutation</span>
-          :
-          <TypeLink type={mutationType} @click="handleClick" />
-        </div>}}
-      {{subscriptionType &&
-        <div class="doc-category-item">
-          <span class="keyword">subscription</span>
-          :
-          <TypeLink
-            type="subscriptionType"
-            @click="handleClick"
-          />
-        </div>}}
+      {{mutationType}}
+      <div class="doc-category-item">
+        <span class="keyword">mutation:</span>
+        <TypeLink :type="mutationType" v-on:typeLinkClick="handleTypeLinkClick" />
+      </div>
+      {{subscriptionType}}
+      <div class="doc-category-item">
+        <span class="keyword">subscription:</span>
+        <TypeLink :type="subscriptionType" v-on:typeLinkClick="handleTypeLinkClick" />
+      </div>
     </div>
   </div>
 </template>
@@ -42,9 +36,16 @@
       }
     },
     computed: {
-      queryType: () => this.schema.getQueryType(),
-      mutationType: () => this.schema.getMutationType && this.schema.getMutationType(),
-      subscriptionType: () => this.schema.getSubscriptionType && this.schema.getSubscriptionType()
+      queryType: function () {
+        return this.schema.getQueryType()
+      },
+      mutationType: function () {
+        return this.schema.getMutationType()
+      },
+      subscriptionType: function () {
+        console.log('this.schema', this.schema)
+        return this.schema.getSubscriptionType()
+      }
     },
     components: {
       TypeLink,
@@ -53,7 +54,14 @@
     methods: {
       handleClick: function () {
         this.$emit('schemaDocClick')
+      },
+      handleTypeLinkClick: (e, type) => {
+        e.preventDefault()
+        console.log('typelinkclicked type', type)
       }
+    },
+    created () {
+      console.log('this.schema', this.schema)
     }
   }
 </script>
