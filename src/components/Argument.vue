@@ -2,7 +2,7 @@
   <span className="arg">
     <span className="arg-name">{{arg.name}}</span>
     :
-    <TypeLink :type="arg.type" v-on:typeLinkClick="handleClick"/>
+    <TypeLink :type="arg.type" v-on:TypeLinkClick="handleClick"/>
     <DefaultValue :if="showDefaultValue" :field="arg" />
   </span>
 </template>
@@ -17,10 +17,6 @@
         required: true,
         type: Object
       },
-      onClickType: {
-        required: true,
-        type: Function
-      },
       showDefaultValue: {
         required: true,
         type: Boolean
@@ -29,17 +25,15 @@
     components: {
       TypeLink,
       DefaultValue
-<<<<<<< HEAD
-=======
     },
     methods: {
       handleClick: (...args) => {
         this.$emit('argumentClick', args)
       }
->>>>>>> f824403... :construction: wip
     }
   }
 </script>
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+</style>
 
 
