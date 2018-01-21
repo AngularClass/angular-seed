@@ -36,10 +36,17 @@ export default {
     this.$nextTick(function () {
       if (this.ResultsTooltip) {
         this.toolTip = true;
-        const tooltipDiv = document.getElementById('div');
-        CodeMirror.registerHelper('info', 'graphql-results', (token, options, cm, pos) => {
-          const Tooltip = this.ResultsTooltip;
-          ReactDOM.render(<Tooltip pos={pos} />, tooltipDiv);
+        const Tooltip = this.ResultsTooltip;
+        const tooltipDiv = document.getElementById('tool-tip-div');
+        CodeMirror
+          .registerHelper('info', 'graphql-results', (token, options, cm, pos) => {
+          const TooltipWrapper = Vue.extend({
+            render: function (c) {
+              c(<Tooltip pos="pos" />)
+            }
+          })
+          tooltipWrapper = new TooltipWrapper()
+          tooltipWrapper.$mount(tooltipDiv)
           return tooltipDiv;
           },
         );
