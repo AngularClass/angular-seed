@@ -28,7 +28,7 @@
     },
     methods: {
       handleClick: (...args) => {
-        console.log('Argument handleClick', args)
+        this.$emit('argumentClick', args)
       }
     }
   }
