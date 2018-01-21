@@ -1,5 +1,6 @@
 <template>
   <div>
+    FieldDoc
     <MarkdownContent
       :className="'doc-type-description'"
       :markdown="field.description || 'No Description'"
@@ -9,7 +10,7 @@
       <div class="doc-category-title">
         type
       </div>
-      <TypeLink :type="field.type" v-on:TypeLinkClick="handleClick" />
+      <TypeLink :type="field.type" v-on:typeLinkClick="handleTypeLinkClick" />
     </div>
     <div class="doc-category">
         <div class="doc-category-title">
@@ -43,8 +44,8 @@ export default {
     TypeLink
   },
   methods: {
-    handleClick: (...args) => {
-      console.log('FieldDoc handleClick', args)
+    handleTypeLinkClick: function (e, ...args) {
+      this.$emit('typeLinkClick', e, args)
     }
   }
 }

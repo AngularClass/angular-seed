@@ -2,7 +2,7 @@
   <span className="arg">
     <span className="arg-name">{{arg.name}}</span>
     :
-    <TypeLink :type="arg.type" v-on:TypeLinkClick="handleClick"/>
+    <TypeLink :type="arg.type" v-on:typeLinkClick="handleTypeLinkClick"/>
     <DefaultValue :if="showDefaultValue" :field="arg" />
   </span>
 </template>
@@ -27,8 +27,13 @@
       DefaultValue
     },
     methods: {
+<<<<<<< HEAD:src/components/Argument.vue
       handleClick: (...args) => {
         console.log('Argument handleClick', args)
+=======
+      handleTypeLinkClick: function (e, ...args) {
+        this.$emit('argumentClick', e, args)
+>>>>>>> dev:src/components/DocsExplorer/Argument.vue
       }
     }
   }
