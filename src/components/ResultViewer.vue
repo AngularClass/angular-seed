@@ -1,9 +1,21 @@
 <template>
-  <div class="result-window" ref="node => this._node = node"/>
+  <div class="result-window-container">
+    <div class="result-window" ref="node => this._node = node"/>
+    <div v-if="toolTip" id="tool-tip-div"></div>
+  </div>
 </template>
 
 <script>
 import CodeMirror from 'codemirror'
+import 'codemirror/addon/fold/foldgutter'
+import 'codemirror/addon/fold/brace-fold'
+import 'codemirror/addon/dialog/dialog'
+import 'codemirror/addon/search/search'
+import 'codemirror/addon/search/searchcursor'
+import 'codemirror/addon/search/jump-to-line'
+import 'codemirror/keymap/sublime'
+import 'codemirror-graphql/results/mode'
+import 'codemirror-graphql/utils/info-addon'
 export default {
   name: 'ResultViewer',
   props: {
@@ -13,35 +25,25 @@ export default {
     editorTheme: {
       type: String
     },
-    ResultsTooltip
+    ResultsTooltip: {}
+  },
+  data: function () {
+    return {
+      toolTip: false
+    }
   },
   mounted: function () {
     this.$nextTick(function () {
-    // Lazily require to ensure requiring GraphiQL outside of a Browser context
-    // does not produce an error.
-    const CodeMirror = require('codemirror');
-    require('codemirror/addon/fold/foldgutter');
-    require('codemirror/addon/fold/brace-fold');
-    require('codemirror/addon/dialog/dialog');
-    require('codemirror/addon/search/search');
-    require('codemirror/addon/search/searchcursor');
-    require('codemirror/addon/search/jump-to-line');
-    require('codemirror/keymap/sublime');
-    require('codemirror-graphql/results/mode');
-
-    if (this.props.ResultsTooltip) {
-      require('codemirror-graphql/utils/info-addon');
-      const tooltipDiv = document.createElement('div');
-      CodeMirror.registerHelper(
-        'info',
-        'graphql-results',
-        (token, options, cm, pos) => {
-          const Tooltip = this.props.ResultsTooltip;
+      if (this.ResultsTooltip) {
+        this.toolTip = true;
+        const tooltipDiv = document.getElementById('div');
+        CodeMirror.registerHelper('info', 'graphql-results', (token, options, cm, pos) => {
+          const Tooltip = this.ResultsTooltip;
           ReactDOM.render(<Tooltip pos={pos} />, tooltipDiv);
           return tooltipDiv;
-        },
-      );
-    }
+          },
+        );
+      }
 
     this.viewer = CodeMirror(this._node, {
       lineWrapping: true,
