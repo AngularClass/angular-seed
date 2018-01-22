@@ -12,7 +12,7 @@ import TypeLink from './TypeLink'
 import MarkdownContent from './MarkdownContent'
 import FieldDoc from './FieldDoc'
 import SchemaDoc from './SchemaDoc'
-import {schema} from '../mocks/graphql/schema'
+import {schema} from '../../mocks/graphql/schema'
 export default {
   name: 'ComponentWrapper',
   props: {
