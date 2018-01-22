@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ComponentWrapper from './components/ComponentWrapper'
+import ComponentWrapper from './components/DocsExplorer/ComponentWrapper'
 export default {
   name: 'app',
   components: {
