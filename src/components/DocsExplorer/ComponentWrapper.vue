@@ -1,13 +1,9 @@
-// Temporary component to test refactored react components
-
 <template>
-  <!-- uncomment below to preview styles -->
-  <!-- <div class="playground"> -->
-  <div>
+  <div class="playground">
     <h1 :class="className">{{title}}</h1>
-    <TypeLink :type="TypeLinkProps.type" :onClick="TypeLinkProps.onClick" />
+    <TypeLink :type="TypeLinkProps.type" @typeLinkClick.prevent="handleTypeLinkClick" />
     <MarkdownContent :class="MarkdownContentProps.className" :markdown="MarkdownContentProps.markdown" />
-    <FieldDoc :field="FieldDocProps.field" v-on:typeLinkClick="handleTypeLinkClick"/>
+    <FieldDoc :field="FieldDocProps.field" @typeLinkClick="handleTypeLinkClick"/>
     <SchemaDoc :schema="SchemaDocProps.schema"/>
   </div>
 </template>
@@ -83,11 +79,13 @@ export default {
     }
   },
   methods: {
-    handleTypeLinkClick: function (e, ...args) {
-      e.preventDefault()
+    handleTypeLinkClick (e, ...args) {
       console.log('handleTypeLinkClick args', e, args)
     },
-    handleClickTypeOrField: (typeOrField) => {
+    handleFieldDocClick (args) {
+      console.log('handleFieldDocClick args', args)
+    },
+    handleClickTypeOrField (typeOrField) {
       console.log('handleClickTypeOrField', typeOrField)
     }
   }
