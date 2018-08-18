@@ -4,16 +4,40 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "yarn build-app && yarn build-lib",
+    "build-lib": "vue-cli-service build --target lib --name graphql-ide src/App.vue",
+    "build-app": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "vue": "^2.5.17"
+    "codemirror": "^5.39.2",
+    "codemirror-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
+    "graphql-fetch": "^1.0.1",
+    "markdown-it": "^8.4.2",
+    "vue": "^2.5.17",
+    "vue-codemirror": "^4.0.5",
+    "vue-codemirror-lite": "^1.0.4",
+    "vue-types": "^1.3.2"
   },
   "devDependencies": {
+    "@tipe/eslint-config-tipe": "^2.0.0",
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
+    "eslint": "^5.4.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.21.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-vue": "^4.7.1",
+    "eslint-plugin-vue-types": "^0.1.0",
+    "prettier": "^1.14.2",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
@@ -22,12 +46,13 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "@tipe/eslint-config-tipe/vue",
+      "plugin:vue-types/strongly-recommended"
     ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
+    "settings": {
+      "vue-types/namespace": [
+        "VueTypes"
+      ]
     }
   },
   "postcss": {

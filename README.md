@@ -1,4 +1,4 @@
-# graphql-ide
+# GraphQL Flex
 
 ## Project setup
 ```
