@@ -1,17 +1,19 @@
 {
-  "name": "graphql-ide",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@tipe/graphql-flex",
+  "version": "0.0.0-development",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "yarn build-lib",
     "build-cdn": "yarn build-app",
-    "build-lib": "vue-cli-service build --target lib --name graphql-flex src/App.vue",
+    "build-lib": "vue-cli-service build --target lib --name graphql-flex src/components/GraphQLFlex.vue",
     "build-app": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit",
     "ci": "yarn lint && yarn test",
-    "pre-commit": "lint-staged && yarn test"
+    "pre-commit": "lint-staged && yarn test",
+    "travis-deploy-once": "travis-deploy-once --pro",
+    "semantic-release": "semantic-release"
   },
   "lint-staged": {
     "linters": {
@@ -21,6 +23,12 @@
       ]
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "main": "dist/graphql-flex.common.js",
   "dependencies": {
     "codemirror": "^5.39.2",
     "codemirror-graphql": "^0.6.12",
@@ -33,6 +41,8 @@
     "vue-types": "^1.3.2"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^3.0.0",
+    "@semantic-release/git": "^7.0.2",
     "@tipe/eslint-config-tipe": "^2.0.0",
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
@@ -52,6 +62,8 @@
     "eslint-plugin-vue-types": "^0.1.0",
     "lint-staged": "^7.2.2",
     "prettier": "^1.14.2",
+    "semantic-release": "^15.9.9",
+    "travis-deploy-once": "^5.0.3",
     "vue-template-compiler": "^2.5.17",
     "yorkie": "^2.0.0"
   },
@@ -79,5 +91,64 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tipeio/graphql-flex.git"
+  },
+  "release": {
+    "success": [
+      "@semantic-release/github"
+    ],
+    "fail": [
+      "@semantic-release/github"
+    ],
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/git",
+        "assets": [
+          "package.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    "publish": [
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ],
+    "analyzeCommits": {
+      "preset": "angular",
+      "releaseRules": [
+        {
+          "type": "docs",
+          "scope": "README",
+          "release": "patch"
+        },
+        {
+          "type": "refactor",
+          "release": "patch"
+        },
+        {
+          "type": "style",
+          "release": "patch"
+        }
+      ],
+      "parserOpts": {
+        "noteKeywords": [
+          "BREAKING CHANGE",
+          "BREAKING CHANGES",
+          "BREAKING"
+        ]
+      }
+    }
+  }
 }
