@@ -11,7 +11,7 @@
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit",
     "ci": "yarn lint && yarn test",
-    "precommit": "lint-staged && yarn test"
+    "pre-commit": "lint-staged && yarn test"
   },
   "lint-staged": {
     "linters": {
