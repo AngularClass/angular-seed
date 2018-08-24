@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build": "yarn build-lib",
     "build-cdn": "yarn build-app",
     "build-lib": "vue-cli-service build --target lib --name graphql-flex src/App.vue",
     "build-app": "vue-cli-service build",
