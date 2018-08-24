@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import App from './App.vue'
+import GraphqlFlex from './components/GraphQLFlex.vue'
 
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App)
+  render: h => h(GraphqlFlex)
 }).$mount('#app')

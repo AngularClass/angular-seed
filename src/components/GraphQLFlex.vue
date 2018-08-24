@@ -58,7 +58,7 @@ import 'codemirror-graphql/variables/lint'
 import 'codemirror-graphql/variables/mode'
 import 'codemirror/addon/display/autorefresh'
 import 'codemirror/addon/search/jump-to-line'
-import onHasCompletion from './hasCompletion'
+import onHasCompletion from '@/utils/hasCompletion'
 
 const AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/
 const gqlFetch = gqlf('https://graphql-pokemon.now.sh')
