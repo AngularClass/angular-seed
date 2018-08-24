@@ -1,6 +1,6 @@
 {
   "name": "@tipe/graphql-flex",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
