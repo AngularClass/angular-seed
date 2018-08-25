@@ -34,6 +34,7 @@
     "codemirror-graphql": "^0.6.12",
     "graphql": "^0.13.2",
     "graphql-fetch": "^1.0.1",
+    "lodash.merge": "^4.6.1",
     "markdown-it": "^8.4.2",
     "vue": "^2.5.17",
     "vue-codemirror": "^4.0.5",
@@ -79,7 +80,8 @@
     ],
     "settings": {
       "vue-types/namespace": [
-        "VueTypes"
+        "VueTypes",
+        "vueTypes"
       ]
     }
   },
