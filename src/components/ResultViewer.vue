@@ -1,74 +1,47 @@
 <template>
-  <div class="query-editor">
-    <codemirror
-      ref="editor" 
-      :value="code"
-      :options="options"/>
-  </div>
+  <div
+    ref="_node"
+    class="result-viewer"/>
 </template>
 <script>
 import vueTypes from 'vue-types'
-import { options, liteModeOptions } from '@/utils/defaultOptions'
-import onHasCompletion from '@/utils/hasCompletion'
-import merge from 'lodash.merge'
-import { codemirror } from 'vue-codemirror-lite'
-const AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/
+import { createEditor } from '@/utils/editor'
+import { RESULT_VIEWER } from '@/utils/constants'
 
 export default {
-  components: {
-    codemirror
-  },
   props: {
     editorOptions: vueTypes
       .shape({
         lineNumbers: vueTypes.bool.def(true),
-        theme: vueTypes.string.def('graphql'),
-        readOnly: vueTypes.bool.def(false)
+        theme: vueTypes.string.def('graphql')
       })
       .def({}),
-    liteMode: vueTypes.bool.def(false),
-    schema: vueTypes.object.isRequired
+    liteMode: vueTypes.bool.def(false)
   },
+
   data() {
     return {
-      code: ''
+      viewer: null
     }
   },
-  computed: {
-    options() {
-      const base = options(this.schema)
 
-      if (this.liteMode) {
-        return { ...merge(base, this.editorOptions), ...liteModeOptions }
-      }
-
-      return merge(base, options, this.editorOptions)
-    },
-    editor() {
-      return this.$refs.editor && this.$refs.editor.editor
+  watch: {
+    value(newVal) {
+      this.viewer.setValue(newVal || '')
     }
   },
+
   mounted() {
-    if (this.autoFocus) {
-      this.editor.focus()
-    }
-
-    this.editor.on('keyup', this.onKeyup.bind(this))
-
-    this.editor.on('hasCompletion', this.onHasCompletion.bind(this))
-    if (!this.liteMode) {
-    }
+    this.viewer = createEditor({
+      editorType: RESULT_VIEWER,
+      liteMode: this.liteMode,
+      node: this.$refs._node,
+      codeMirrorOptions: { ...this.editorOptions, value: this.value || '' }
+    })
   },
-  methods: {
-    onKeyup() {
-      if (AUTO_COMPLETE_AFTER_KEY.test(event.key)) {
-        console.log('auto')
-        this.editor.execCommand('autocomplete')
-      }
-    },
-    onHasCompletion(cm, data) {
-      onHasCompletion(cm, data)
-    }
+
+  beforeDestroy() {
+    this.viewer = null
   }
 }
 </script>
