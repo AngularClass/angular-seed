@@ -1,3 +1,10 @@
+export const liteModeOptions = {
+  lineNumbers: false,
+  info: {},
+  jump: {},
+  gutters: []
+}
+
 export const options = schema => ({
   lineNumbers: true,
   tabSize: 2,
