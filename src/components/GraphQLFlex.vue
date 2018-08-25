@@ -27,7 +27,8 @@ export default {
     return {
       schema: null,
       queryEditorOptions: {},
-      queryValue: ''
+      queryValue: '',
+      resultValue: ''
     }
   },
   async mounted() {

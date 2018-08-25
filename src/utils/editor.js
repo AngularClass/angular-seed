@@ -1,5 +1,5 @@
-import { options, liteModeOptions } from './defaultOptions'
-import { importQueryAddons } from './editorImports'
+import { createQueryOptions, createResultOptions } from './defaultOptions'
+import { importQueryAddons, importResultAddons } from './editorImports'
 import merge from 'lodash.merge'
 import * as names from './constants'
 
@@ -9,12 +9,17 @@ export const createEditor = config => {
 
   if (editorType === names.QUERY_EDITOR) {
     importQueryAddons(liteMode)
+    const finalOptions = merge(
+      createQueryOptions(schema, liteMode),
+      codeMirrorOptions
+    )
+
+    return CodeMirror(node, finalOptions)
   }
 
-  let finalOptions = merge(options(schema), codeMirrorOptions)
-  if (liteMode) {
-    finalOptions = { ...finalOptions, ...liteModeOptions }
+  if (editorType === names.RESULT_VIEWER) {
+    importResultAddons(liteMode)
+    const finalOptions = merge(createResultOptions(liteMode), codeMirrorOptions)
+    return CodeMirror(node, finalOptions)
   }
-
-  return CodeMirror(node, finalOptions)
 }
