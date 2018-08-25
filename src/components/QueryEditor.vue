@@ -5,13 +5,10 @@
 </template>
 <script>
 import vueTypes from 'vue-types'
-import merge from 'lodash.merge'
 import { codemirror } from 'vue-codemirror-lite'
-import { options, liteModeOptions } from '@/utils/defaultOptions'
 import onHasCompletion from '@/utils/hasCompletion'
-import { importQueryAddons } from '@/utils/editorImports'
-
-const AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/
+import { createEditor } from '@/utils/editor'
+import { QUERY_EDITOR, AUTO_COMPLETE_AFTER_KEY } from '@/utils/constants'
 
 export default {
   components: {
@@ -34,25 +31,14 @@ export default {
       editor: null
     }
   },
-  computed: {
-    options() {
-      const base = options(this.schema)
-
-      if (this.liteMode) {
-        return { ...merge(base, this.editorOptions), ...liteModeOptions }
-      }
-
-      return merge(base, options, this.editorOptions)
-    }
-    // editor() {
-    //   return this.$refs.editor && this.$refs.editor.editor
-    // }
-  },
   mounted() {
-    const CodeMirror = require('codemirror')
-    importQueryAddons()
-
-    this.editor = CodeMirror(this.$refs._node, this.options)
+    this.editor = createEditor({
+      editorType: QUERY_EDITOR,
+      liteMode: this.liteMode,
+      node: this.$refs._node,
+      codeMirrorOptions: this.editorOptions,
+      schema: this.schema
+    })
 
     if (this.autoFocus) {
       this.editor.focus()
