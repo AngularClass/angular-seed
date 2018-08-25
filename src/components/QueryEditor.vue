@@ -8,12 +8,16 @@
 </template>
 <script>
 import vueTypes from 'vue-types'
-import options from '@/utils/defaultOptions'
+import { options, liteModeOptions } from '@/utils/defaultOptions'
 import onHasCompletion from '@/utils/hasCompletion'
 import merge from 'lodash.merge'
+import { codemirror } from 'vue-codemirror-lite'
 const AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/
 
 export default {
+  components: {
+    codemirror
+  },
   props: {
     editorOptions: vueTypes
       .shape({
@@ -25,15 +29,23 @@ export default {
     liteMode: vueTypes.bool.def(false),
     schema: vueTypes.object.isRequired
   },
+  data() {
+    return {
+      code: ''
+    }
+  },
   computed: {
     options() {
       const base = options(this.schema)
 
       if (this.liteMode) {
-        return merge(base, this.editorOptions, { lineNumbers: false })
+        return { ...merge(base, this.editorOptions), ...liteModeOptions }
       }
 
       return merge(base, options, this.editorOptions)
+    },
+    editor() {
+      return this.$refs.editor && this.$refs.editor.editor
     }
   },
   mounted() {
@@ -43,22 +55,25 @@ export default {
 
     this.editor.on('keyup', this.onKeyup.bind(this))
 
+    this.editor.on('hasCompletion', this.onHasCompletion.bind(this))
     if (!this.liteMode) {
-      this.editor.on('hasCompletion', this.onHasCompletition.bind(this))
     }
   },
   methods: {
     onKeyup() {
       if (AUTO_COMPLETE_AFTER_KEY.test(event.key)) {
+        console.log('auto')
         this.editor.execCommand('autocomplete')
       }
     },
-    onHasCompletition(cm, data) {
+    onHasCompletion(cm, data) {
       onHasCompletion(cm, data)
     }
   }
 }
 </script>
 <style lang="stylus" scoped>
-
+  .query-editor
+    height 100%
+    width 100%
 </style>
