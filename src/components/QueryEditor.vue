@@ -1,17 +1,16 @@
 <template>
-  <div class="query-editor">
-    <codemirror
-      ref="editor" 
-      :value="code"
-      :options="options"/>
-  </div>
+  <div
+    ref="_node"
+    class="query-editor"/>
 </template>
 <script>
 import vueTypes from 'vue-types'
-import { options, liteModeOptions } from '@/utils/defaultOptions'
-import onHasCompletion from '@/utils/hasCompletion'
 import merge from 'lodash.merge'
 import { codemirror } from 'vue-codemirror-lite'
+import { options, liteModeOptions } from '@/utils/defaultOptions'
+import onHasCompletion from '@/utils/hasCompletion'
+import { importQueryAddons } from '@/utils/editorImports'
+
 const AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/
 
 export default {
@@ -27,11 +26,12 @@ export default {
       })
       .def({}),
     liteMode: vueTypes.bool.def(false),
-    schema: vueTypes.object.isRequired
+    schema: vueTypes.object.isRequired,
+    query: vueTypes.string.def('')
   },
   data() {
     return {
-      code: ''
+      editor: null
     }
   },
   computed: {
@@ -43,12 +43,17 @@ export default {
       }
 
       return merge(base, options, this.editorOptions)
-    },
-    editor() {
-      return this.$refs.editor && this.$refs.editor.editor
     }
+    // editor() {
+    //   return this.$refs.editor && this.$refs.editor.editor
+    // }
   },
   mounted() {
+    const CodeMirror = require('codemirror')
+    importQueryAddons()
+
+    this.editor = CodeMirror(this.$refs._node, this.options)
+
     if (this.autoFocus) {
       this.editor.focus()
     }
@@ -62,7 +67,6 @@ export default {
   methods: {
     onKeyup() {
       if (AUTO_COMPLETE_AFTER_KEY.test(event.key)) {
-        console.log('auto')
         this.editor.execCommand('autocomplete')
       }
     },
