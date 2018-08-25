@@ -5,6 +5,8 @@
         v-if="schema"
         :schema="schema"
         :lite-mode="true"
+        :value="queryValue"
+        @change="onQueryChange"
       />
     </div>
   </div>
@@ -24,13 +26,19 @@ export default {
   data() {
     return {
       schema: null,
-      queryEditorOptions: {}
+      queryEditorOptions: {},
+      queryValue: ''
     }
   },
   async mounted() {
     const introResult = await gqlFetch(introspectionQuery)
     const schema = buildClientSchema(introResult.data)
     this.schema = schema
+  },
+  methods: {
+    onQueryChange(value) {
+      this.queryValue = value
+    }
   }
 }
 </script> 
