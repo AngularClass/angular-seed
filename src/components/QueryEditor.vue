@@ -5,15 +5,11 @@
 </template>
 <script>
 import vueTypes from 'vue-types'
-import { codemirror } from 'vue-codemirror-lite'
 import onHasCompletion from '@/utils/hasCompletion'
 import { createEditor } from '@/utils/editor'
 import { QUERY_EDITOR, AUTO_COMPLETE_AFTER_KEY } from '@/utils/constants'
 
 export default {
-  components: {
-    codemirror
-  },
   props: {
     editorOptions: vueTypes
       .shape({
@@ -24,11 +20,25 @@ export default {
       .def({}),
     liteMode: vueTypes.bool.def(false),
     schema: vueTypes.object.isRequired,
-    query: vueTypes.string.def('')
+    value: vueTypes.string.def('')
   },
   data() {
     return {
       editor: null
+    }
+  },
+  watch: {
+    schema: function(newSchema, currentSchema) {
+      if (newSchema !== currentSchema) {
+        const CodeMirror = require('codemirror')
+
+        this.editor.options.lint.schema = newSchema
+        this.editor.options.hintOptions.schema = newSchema
+        this.editor.options.info.schema = newSchema
+        this.editor.options.jump.schema = newSchema
+
+        CodeMirror.signal(this.editor, 'change', this.editor)
+      }
     }
   },
   mounted() {
@@ -36,7 +46,7 @@ export default {
       editorType: QUERY_EDITOR,
       liteMode: this.liteMode,
       node: this.$refs._node,
-      codeMirrorOptions: this.editorOptions,
+      codeMirrorOptions: { ...this.editorOptions, value: this.value || '' },
       schema: this.schema
     })
 
@@ -44,18 +54,29 @@ export default {
       this.editor.focus()
     }
 
+    this.editor.on('change', this.onEdit)
     this.editor.on('keyup', this.onKeyup.bind(this))
-
     this.editor.on('hasCompletion', this.onHasCompletion.bind(this))
-    if (!this.liteMode) {
-    }
   },
+
+  beforeDestroy() {
+    this.editor.off('change', this.onEdit)
+    this.editor.off('keyup', this.onKeyUp)
+    this.editor.off('hasCompletion', this.onHasCompletion)
+    this.editor = null
+  },
+
   methods: {
+    onEdit() {
+      this.$emit('change', this.editor.getValue())
+    },
+
     onKeyup() {
       if (AUTO_COMPLETE_AFTER_KEY.test(event.key)) {
         this.editor.execCommand('autocomplete')
       }
     },
+
     onHasCompletion(cm, data) {
       onHasCompletion(cm, data)
     }
