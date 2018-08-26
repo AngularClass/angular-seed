@@ -1,8 +1,5 @@
 export const importBaseAddons = () => {
   require('codemirror/lib/codemirror.css')
-  require('codemirror/addon/hint/show-hint.css')
-  require('codemirror/addon/dialog/dialog.css')
-  require('codemirror/addon/dialog/dialog')
 }
 
 export const importQueryAddons = liteMode => {
@@ -13,6 +10,10 @@ export const importQueryAddons = liteMode => {
     require('codemirror/addon/fold/foldgutter')
   }
 
+  require('codemirror/addon/hint/show-hint.css')
+  require('codemirror/addon/dialog/dialog.css')
+
+  require('codemirror/addon/dialog/dialog')
   require('codemirror/addon/hint/show-hint')
   require('codemirror/addon/comment/comment')
   require('codemirror/addon/edit/matchbrackets')

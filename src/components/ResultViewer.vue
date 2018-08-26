@@ -12,11 +12,11 @@ export default {
   props: {
     editorOptions: vueTypes
       .shape({
-        lineNumbers: vueTypes.bool.def(true),
-        theme: vueTypes.string.def('graphql')
+        theme: vueTypes.string.def('graphiql')
       })
       .def({}),
-    liteMode: vueTypes.bool.def(false)
+    liteMode: vueTypes.bool.def(false),
+    value: vueTypes.string.def('')
   },
 
   data() {
@@ -38,6 +38,7 @@ export default {
       node: this.$refs._node,
       codeMirrorOptions: { ...this.editorOptions, value: this.value || '' }
     })
+    console.log(this.viewer)
   },
 
   beforeDestroy() {
@@ -45,8 +46,10 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-  .query-editor
+<style lang="stylus">
+  .result-viewer
     height 100%
     width 100%
+    .CodeMirror
+      height 100%
 </style>

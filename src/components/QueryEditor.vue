@@ -14,7 +14,7 @@ export default {
     editorOptions: vueTypes
       .shape({
         lineNumbers: vueTypes.bool.def(true),
-        theme: vueTypes.string.def('graphql'),
+        theme: vueTypes.string.def('graphiql'),
         readOnly: vueTypes.bool.def(false)
       })
       .def({}),
@@ -46,7 +46,18 @@ export default {
       editorType: QUERY_EDITOR,
       liteMode: this.liteMode,
       node: this.$refs._node,
-      codeMirrorOptions: { ...this.editorOptions, value: this.value || '' },
+      codeMirrorOptions: {
+        ...this.editorOptions,
+        value: this.value || '',
+        extraKeys: {
+          'Cmd-Enter': () => {
+            this.runQuery()
+          },
+          'Ctrl-Enter': () => {
+            this.runQuery()
+          }
+        }
+      },
       schema: this.schema
     })
 
@@ -79,6 +90,10 @@ export default {
 
     onHasCompletion(cm, data) {
       onHasCompletion(cm, data)
+    },
+
+    runQuery() {
+      this.$emit('runQuery', this.editor.getValue())
     }
   }
 }
@@ -87,4 +102,6 @@ export default {
   .query-editor
     height 100%
     width 100%
+    .CodeMirror
+      height 100%
 </style>
