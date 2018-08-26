@@ -1,13 +1,21 @@
 <template>
   <div class="container">
     <div class="editors">
-      <query-editor
-        v-if="schema"
-        :schema="schema"
-        :lite-mode="true"
-        :value="queryValue"
-        @change="onQueryChange"
-      />
+      <div class="editor-container">
+        <query-editor
+          v-if="schema"
+          :schema="schema"
+          :lite-mode="true"
+          :value="queryValue"
+          @change="onQueryChange"
+          @runQuery="onRunQuery"
+        />
+      </div>
+      <div class="editor-container">
+        <result-viewer
+          :value="resultValue"
+          :lite-mode="true" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,19 +24,21 @@
 import { buildClientSchema, introspectionQuery } from 'graphql'
 import gqlf from 'graphql-fetch'
 import QueryEditor from './QueryEditor'
+import ResultViewer from './ResultViewer'
 
 const gqlFetch = gqlf('https://graphql-pokemon.now.sh')
 
 export default {
   components: {
-    QueryEditor
+    QueryEditor,
+    ResultViewer
   },
   data() {
     return {
       schema: null,
       queryEditorOptions: {},
       queryValue: '',
-      resultValue: ''
+      resultValue: ``
     }
   },
   async mounted() {
@@ -39,6 +49,14 @@ export default {
   methods: {
     onQueryChange(value) {
       this.queryValue = value
+    },
+    onRunQuery(value) {
+      this.executeQuery(value)
+        .then(result => (this.resultValue = JSON.stringify(result)))
+        .catch(e => console.error(e))
+    },
+    executeQuery(query) {
+      return gqlFetch(query)
     }
   }
 }
@@ -66,7 +84,7 @@ export default {
 
 .container
   margin: 0 auto
-  width: 100vw
+  width: 75vw
   height: 50vh
 
 .editors
@@ -74,6 +92,10 @@ export default {
   margin-bottom: 10px
   width: 100%
   height: 100%
+  display flex
+  .editor-container
+    flex 1
+    border 1px solid rgba(0,0,0,0.2)
 
 .CodeMirror-hints.graphiql
   padding 0px

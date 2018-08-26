@@ -20,6 +20,7 @@ export const createEditor = config => {
   if (editorType === names.RESULT_VIEWER) {
     importResultAddons(liteMode)
     const finalOptions = merge(createResultOptions(liteMode), codeMirrorOptions)
+
     return CodeMirror(node, finalOptions)
   }
 }

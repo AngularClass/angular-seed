@@ -31,7 +31,7 @@ export const createResultOptions = liteMode => {
   }
 
   if (liteMode) {
-    return { ...opts, liteModeOptions }
+    return { ...opts, ...liteModeOptions }
   }
   return opts
 }
