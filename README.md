@@ -1,4 +1,13 @@
-# GraphQL Flex
+# GraphQL Flex [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/tipe)
+
+## Install
+```bash
+# via npm
+npm install @tipe/graphql-flex
+
+# via yarn
+yarn add @tipe/graphql-flex
+```
 
 ## Project setup
 ```
